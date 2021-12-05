@@ -1,6 +1,5 @@
 package com.example.demo.entities;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +13,7 @@ public class QCM {
     private Boolean isRandomized;
     private Set<String> SujetsDeQuestions = new HashSet<String>();
     private Set<Question> questions = new HashSet<Question>();
+
 
     public QCM(String titre, Double duree, String entete, Boolean isRandomized){
         this.duree = duree;

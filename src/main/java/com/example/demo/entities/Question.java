@@ -6,6 +6,7 @@ package com.example.demo.entities;
  * Cette classe est abstraite et son constructeur doit-être appelé dans les constructeurs des classes filles
  */
 public abstract class Question {
+    private TypeDeQuestion typeDeQuestion;
     private String intitule;
     private String sujet;
     private Double points;
@@ -16,7 +17,8 @@ public abstract class Question {
      * @param intitule l'intitulé de la question
      * @param sujet le sujet de la question
      */
-    public Question(String nomQuestion, String intitule, String sujet, Double points){
+    public Question(TypeDeQuestion typeDeQuestion, String nomQuestion, String intitule, String sujet, Double points){
+        this.typeDeQuestion = typeDeQuestion;
         this.nomQuestion = nomQuestion;
         this.intitule = intitule;
         this.sujet = sujet;
@@ -24,6 +26,10 @@ public abstract class Question {
     }
 
     abstract String toTex();
+
+    public TypeDeQuestion getTypeDeQuestion() {
+        return this.typeDeQuestion;
+    }
 
     public String getNomQuestion() {
         return nomQuestion;

@@ -1,6 +1,5 @@
 package com.example.demo.entities;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,7 +22,7 @@ public class QuestionUnique extends Question{
      * @param bareme la map des type de réponse avec leur type (voir Enum "TypeDeReponse") et leur valeur en points dans la question.
      */
     public QuestionUnique(String nomQuestion, String intitule, String sujet, Double points, Map<String,Boolean> reponses, Map<TypeDeReponse,Double> bareme){
-        super(nomQuestion,intitule,sujet,points);
+        super(TypeDeQuestion.OUVERTE,nomQuestion,intitule,sujet,points);
         this.reponses = reponses;
         this.bareme = bareme;
     }

@@ -1,6 +1,5 @@
 package com.example.demo.entities;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public class QuestionOuverte extends Question{
      * @param bareme la HashMap contenant les différentes qualités de réponse et le nombre de points leur correpondant.
      */
     public QuestionOuverte(String nomQuestion, String intitule, String sujet, Double points, int nbLignes,Map<String,Double> bareme){
-        super(nomQuestion,intitule,sujet,points);
+        super(TypeDeQuestion.OUVERTE,nomQuestion,intitule,sujet,points);
         this.nbLignes = nbLignes;
         this.bareme = bareme;
     }

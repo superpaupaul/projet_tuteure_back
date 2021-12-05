@@ -22,7 +22,7 @@ public class QuestionMultiple extends Question{
      * @param coefficientMauvaiseReponse le coefficient qui multiplie la valeur d'une mauvaise réponse avant qu'elle soit retirée aux points gagnés sur la question.
      */
     public QuestionMultiple(String nomQuestion, String intitule, String sujet, Double points, Map<String,Boolean> reponses, Double coefficientMauvaiseReponse){
-        super(nomQuestion,intitule,sujet,points);
+        super(TypeDeQuestion.MULTIPLE,nomQuestion,intitule,sujet,points);
         this.reponses = reponses;
         this.coefficientMauvaiseReponse = coefficientMauvaiseReponse;
     }

@@ -22,7 +22,7 @@ public class QuestionNumerique extends Question{
      * @param sign bouléen qui indique si on indique ou non le signe de la réponse.
      */
     public QuestionNumerique(String nomQuestion, String intitule, String sujet, Double points,Double pointsMauvaiseReponse, Double bonneReponse, Boolean sign){
-        super(nomQuestion,intitule,sujet,points);
+        super(TypeDeQuestion.NUMERIQUE,nomQuestion,intitule,sujet,points);
         this.bonneReponse = bonneReponse;
         this.pointsMauvaiseReponse = pointsMauvaiseReponse;
         this.digits = Double.toString(bonneReponse).replace(".","").length();

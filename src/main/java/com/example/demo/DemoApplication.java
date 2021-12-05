@@ -3,12 +3,13 @@ package com.example.demo;
 import com.example.demo.entities.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -55,11 +56,15 @@ public class DemoApplication {
 		qcm1.addQuestion(maQ3);
 		qcm1.addQuestion(maQ4);
 		System.out.println(qcm1.toTex());
-		//SpringApplication.run(DemoApplication.class, args);
 
 
 		QCM qcm2 = new QCM("dfghj",10.6,"aaa",true);
 		System.out.println(qcm2.toTex());
+
+
+
+		SpringApplication.run(DemoApplication.class, args);
+
 	}
 
 }
