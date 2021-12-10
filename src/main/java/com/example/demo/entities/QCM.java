@@ -16,6 +16,7 @@ public class QCM {
 
 
     public QCM(String titre, Double duree, String entete, Boolean isRandomized){
+        this.titre = titre;
         this.duree = duree;
         this.entete = entete;
         this.isRandomized = isRandomized;

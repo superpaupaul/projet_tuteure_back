@@ -18,7 +18,6 @@ public class QuestionsFromJson {
         String intitule = question.getString("intitule");
         Double points = question.getDouble("points");
 
-
         if(qType == TypeDeQuestion.UNIQUE || qType == TypeDeQuestion.MULTIPLE){
             JSONObject reponsesextraites = question.getJSONObject("reponses");
             Map<String,Boolean> reponsesmap = new HashMap<String,Boolean>();
@@ -41,9 +40,9 @@ public class QuestionsFromJson {
                 baremextraitmap.put(TypeDeReponse.MAUVAISE,baremeextrait.getDouble("m"));
 
                 qExtraite = new QuestionUnique(nomQuestion,intitule,sujet,points,reponsesmap,baremextraitmap);
-
             }
             else{
+                System.out.println(question);
                 Double coef = question.getDouble("coefficientMauvaiseReponse");
                 qExtraite = new QuestionMultiple(nomQuestion,intitule,sujet,points,reponsesmap,coef);
             }

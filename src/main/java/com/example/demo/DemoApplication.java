@@ -70,6 +70,7 @@ public class DemoApplication {
 
 		JSONObject json = new JSONObject(new Gson().toJson(qcm1));
 
+		System.out.println(qcm1.getTitre());
 		System.out.println(json);
 		System.out.println(QCMFRomJson.serialize(json).toTex());
 
