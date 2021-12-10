@@ -2,6 +2,8 @@ package com.example.demo;
 
 import com.example.demo.entities.*;
 
+import com.example.demo.jsonhandler.QCMFRomJson;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +12,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import com.google.gson.Gson;
 
@@ -64,26 +67,13 @@ public class DemoApplication {
 
 
 		QCM qcm2 = new QCM("dfghj",10.6,"aaa",true);
-		System.out.println();
+
 		JSONObject json = new JSONObject(new Gson().toJson(qcm1));
 
-		for(int i = 0; i < json.getJSONArray("questions").length() ; i++){
-			System.out.println(json.getJSONArray("questions").getJSONObject(i).getString("typeDeQuestion"));
-			switch(json.getJSONArray("questions").getJSONObject(i).getString("typeDeQuestion")){
-				case "OUVERTE" :
-{"sujet":"histoire","bareme":{"b":1.5,"e":-1,"v":0,"m":-1},"intitule":"Quelle est la couleur du cheval blanc d'Henri IV ?","nomQuestion":"Henri IV couleur","reponses":{"Rouge":false,"Bleu":false,"Blanc":true,"Noir":false},"typeDeQuestion":"OUVERTE","points":1.5}
-					String sujet = json.getJSONArray("questions").getJSONObject(i).getString("sujet"));
-					String bareme= json.getJSONArray("questions").getJSONObject(i).getJSONObject("bareme"));
-				Question qExtraite = new QuestionOuverte();
-				case "MULTIPLE" :
-					Question qExtraite = new QuestionMultiple();
-				case "NUMERIQUE" :
-					Question qExtraite = new QuestionNumerique();
-				case "UNIQUE" :
-					Question qExtraite = new QuestionUnique();
+		System.out.println(json);
+		System.out.println(QCMFRomJson.serialize(json).toTex());
 
-			}
-		}
+
 
 
 		SpringApplication.run(DemoApplication.class, args);
