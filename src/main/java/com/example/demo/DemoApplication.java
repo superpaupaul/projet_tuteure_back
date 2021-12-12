@@ -2,17 +2,13 @@ package com.example.demo;
 
 import com.example.demo.entities.*;
 
-import com.example.demo.jsonhandler.QCMFRomJson;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import com.google.gson.Gson;
 
@@ -36,10 +32,10 @@ public class DemoApplication {
 		reponses.put("Noir",false);
 		reponses.put("Rouge",false);
 		Map<TypeDeReponse,Double> baremeMaQ2 = new HashMap<TypeDeReponse,Double>();
-		baremeMaQ2.put(TypeDeReponse.BONNE,1.5);
-		baremeMaQ2.put(TypeDeReponse.ABSENTE,0.0);
-		baremeMaQ2.put(TypeDeReponse.INCOHERENTE,-1.0);
-		baremeMaQ2.put(TypeDeReponse.MAUVAISE,-1.0);
+		baremeMaQ2.put(TypeDeReponse.b,1.5);
+		baremeMaQ2.put(TypeDeReponse.v,0.0);
+		baremeMaQ2.put(TypeDeReponse.e,-1.0);
+		baremeMaQ2.put(TypeDeReponse.m,-1.0);
 		QuestionUnique maQ2 = new QuestionUnique("Henri IV couleur","Quelle est la couleur du cheval blanc d'Henri IV ?","histoire",1.5,reponses,baremeMaQ2);
 
 		System.out.println(maQ2.toTex());
@@ -72,7 +68,6 @@ public class DemoApplication {
 
 		System.out.println(qcm1.getTitre());
 		System.out.println(json);
-		System.out.println(QCMFRomJson.serialize(json).toTex());
 
 
 

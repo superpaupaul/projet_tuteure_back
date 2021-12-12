@@ -1,6 +1,18 @@
 package com.example.demo.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "typeDeQuestion")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = QuestionMultiple.class, name = "MULTIPLE"),
+        @JsonSubTypes.Type(value = QuestionUnique.class, name = "UNIQUE"),
+        @JsonSubTypes.Type(value = QuestionOuverte.class, name = "OUVERTE"),
+        @JsonSubTypes.Type(value = QuestionNumerique.class, name = "NUMERIQUE")
+})
+
+
 /**
  * Classe abstraite permettant l'instanciation de Questions.
  * Cette classe est abstraite et son constructeur doit-être appelé dans les constructeurs des classes filles

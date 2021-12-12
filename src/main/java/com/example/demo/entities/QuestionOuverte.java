@@ -39,8 +39,14 @@ public class QuestionOuverte extends Question{
                 "lines=" + nbLignes +
                 ",dots=true}{";
         Set<String> keys = bareme.keySet();
+        int i = 0;
         for(String key : keys){
-            texText += "\\wrongchoice{"+ key +"}\\scoring{"+this.getBareme().get(key)+"}";
+            if(i != keys.size() -1)
+                texText += "\\wrongchoice{"+ key +"}\\scoring{"+this.getBareme().get(key)+"}";
+            else
+                texText += "\\correctchoice{"+ key +"}\\scoring{"+this.getBareme().get(key)+"}";
+
+            i++;
         }
         texText += "}\n\t" +
                 "\\end{question}\n"+

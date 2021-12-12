@@ -22,9 +22,18 @@ public class QCM {
         this.isRandomized = isRandomized;
     }
 
+    public QCM(){
+    }
+
     public void addQuestion(Question question){
         this.getSujetsDeQuestions().add(question.getSujet());
         this.getQuestions().add(question);
+    }
+
+    public void regenerateSujetsQuestions(){
+        for(Question question : questions){
+            SujetsDeQuestions.add(question.getSujet());
+        }
     }
 
     public String toTex(){
@@ -70,8 +79,8 @@ public class QCM {
 
 
         return texText+"\n" +
-                "\\end{document}\n"+
                 "}\n"+
+                "\\end{document}\n"+
                 "\n\n%%FIN DU QCM%% \n\n";
     }
 
