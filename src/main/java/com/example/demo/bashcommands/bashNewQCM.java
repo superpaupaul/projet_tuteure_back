@@ -20,7 +20,6 @@ public class bashNewQCM {
     public static Boolean generateCopies(QCM qcm){
 
 
-        Process process;
         try {
 
 
@@ -31,12 +30,21 @@ public class bashNewQCM {
             writer.close();
 
             String AMCProjectPath = "/Users/em/MC-Projects/"+qcm.getTitre()+"/";
-            process = Runtime.getRuntime().exec("auto-multiple-choice prepare --mode s --prefix "+AMCProjectPath+" /Users/em/MC-Projects/genbin/tex.tex --out-sujet "+AMCProjectPath+"DOC-subject.pdf --out-corrige "+AMCProjectPath+"DOC-correction.pdf --data "+AMCProjectPath+"/data --out-calage "+AMCProjectPath+"DOC-calage.xy");
+            Runtime.getRuntime().exec("auto-multiple-choice prepare --mode s --prefix "+AMCProjectPath+" /Users/em/MC-Projects/genbin/tex.tex --out-sujet "+AMCProjectPath+"DOC-subject.pdf --out-corrige "+AMCProjectPath+"DOC-correction.pdf --data "+AMCProjectPath+"/data --out-calage "+AMCProjectPath+"DOC-calage.xy");
 
-            process = Runtime.getRuntime().exec("rm /Users/em/MC-Projects/genbin/tex.tex");
+            Thread.sleep(3000);
+
+            File files[] = new File("/Users/em/MC-Projects/genbin/").listFiles();
+
+            for(File file : files){
+                Runtime.getRuntime().exec("rm " + file);
+            }
 
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return false;
         }
