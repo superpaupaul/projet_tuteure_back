@@ -54,7 +54,7 @@ public class DemoApplication {
 
 		System.out.println(maQ4.toTex());
 
-		QCM qcm1 = new QCM("dfghj",10.6,"aaa",true);
+		QCM qcm1 = new QCM(1,"dfghj",10.6,"aaa",true);
 		qcm1.addQuestion(maQ);
 		qcm1.addQuestion(maQ2);
 		qcm1.addQuestion(maQ3);
@@ -62,7 +62,7 @@ public class DemoApplication {
 		System.out.println(qcm1.toTex());
 
 
-		QCM qcm2 = new QCM("dfghj",10.6,"aaa",true);
+		QCM qcm2 = new QCM(2,"dfghj",10.6,"aaa",true);
 
 		JSONObject json = new JSONObject(new Gson().toJson(qcm1));
 

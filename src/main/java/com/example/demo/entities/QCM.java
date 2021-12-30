@@ -7,6 +7,7 @@ import java.util.Set;
  * Classe qui permet d'instancier des QCM
  */
 public class QCM {
+    private int id;
     private String titre;
     private double duree;
     private String entete;
@@ -15,7 +16,8 @@ public class QCM {
     private Set<Question> questions = new HashSet<Question>();
 
 
-    public QCM(String titre, Double duree, String entete, Boolean isRandomized){
+    public QCM(int id,String titre, Double duree, String entete, Boolean isRandomized){
+        this.id = id;
         this.titre = titre;
         this.duree = duree;
         this.entete = entete;
@@ -130,5 +132,13 @@ public class QCM {
 
     public void setQuestions(Set<Question> questions) {
         this.questions = questions;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
