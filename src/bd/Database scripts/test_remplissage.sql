@@ -17,6 +17,12 @@ SELECT path FROM qcm WHERE prof_id=14;
 --on chope le path du qcm afin de l'envoyer au front depuis le back
 
 
+
+--Sequence :
+CREATE sequence seq_etudiant;
+
+
+
 --TRIGGER :
 
 CREATE OR REPLACE TRIGGER EtudiantTrig
