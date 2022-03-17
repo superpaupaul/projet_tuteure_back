@@ -1,17 +1,30 @@
 package projet.depta.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import projet.depta.entities.QCM;
 import projet.depta.entities.User;
+import projet.depta.services.UserServices;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
 
-    public Boolean addUser(User caller, User user){
-        return true;
+    @Autowired
+    UserServices userServices;
+
+    @PostMapping("/api/v1/user/newUser")
+    public Long newUser(@RequestParam Long caller, @RequestBody User user){
+        if(userServices.isAdmin(caller)){
+            return userServices.newUser(user);
+        }
+        return (long)-1;
     }
+
+    @PostMapping("/api/v1/")
 
     public Boolean removeUser(User caller, User user){
         return true;
