@@ -37,7 +37,7 @@ public class BashServices {
 
 
             //Runtime.getRuntime().exec("rm -r /Users/em/MC-Projects/genbin" );
-            Runtime.getRuntime().exec("rm -r /home/DEPTA/DATA/genbin" );
+            //Runtime.getRuntime().exec("rm -r /home/DEPTA/DATA/genbin" );
             File output = new File(AMCProjectPath+"/catalog.pdf");
             if(!output.exists()){
                 return false;
