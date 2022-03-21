@@ -20,7 +20,6 @@ public class QCMController {
 
     @PostMapping("/api/v1/qcm/new")
     public Long newQCM(@RequestBody QCM qcm){
-
         return qcmRepository.save(qcm).getId();
     }
 

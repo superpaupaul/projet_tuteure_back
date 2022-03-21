@@ -15,6 +15,7 @@
     <description>DEPTA</description>
     <properties>
         <java.version>11</java.version>
+        <start-class>projet.depta.DeptaApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -62,6 +63,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
