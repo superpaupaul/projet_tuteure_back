@@ -23,10 +23,10 @@ public class BashServices {
 
     public static Boolean generateCopies(QCM qcm){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("/home/DEPTA/DATA/genbin/tex.tex"));
+            //BufferedWriter writer = new BufferedWriter(new FileWriter("/home/DEPTA/DATA/genbin/tex.tex"));
             //BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/em/MC-Projects/genbin/tex.tex"));
-            writer.write(qcm.toTex());
-            writer.close();
+            //writer.write(qcm.toTex());
+            //writer.close();
 
             //String AMCProjectPath = "/Users/em/MC-Projects/"+qcm.getIdcreateur()+"/"+qcm.getId()+"/";
             String AMCProjectPath = "/home/DEPTA/DATA/"+qcm.getIdcreateur()+"/"+qcm.getTitre()+"/";
