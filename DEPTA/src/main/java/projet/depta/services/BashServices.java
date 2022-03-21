@@ -23,10 +23,10 @@ public class BashServices {
 
     public static Boolean generateCopies(QCM qcm){
         try {
-            //BufferedWriter writer = new BufferedWriter(new FileWriter("/home/DEPTA/DATA/genbin/tex.tex"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("/home/DEPTA/DATA/genbin/tex.tex"));
             //BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/em/MC-Projects/genbin/tex.tex"));
-            //writer.write(qcm.toTex());
-            //writer.close();
+            writer.write(qcm.toTex());
+            writer.close();
 
             //String AMCProjectPath = "/Users/em/MC-Projects/"+qcm.getIdcreateur()+"/"+qcm.getId()+"/";
             String AMCProjectPath = "/home/DEPTA/DATA/"+qcm.getIdcreateur()+"/"+qcm.getId()+"/";
@@ -34,28 +34,10 @@ public class BashServices {
             //Process proc = Runtime.getRuntime().exec("auto-multiple-choice prepare --mode s --prefix "+AMCProjectPath+" /Users/em/MC-Projects/genbin/tex.tex --out-sujet "+AMCProjectPath+"DOC-subject.pdf --out-corrige "+AMCProjectPath+"DOC-correction.pdf --data "+AMCProjectPath+"/data --out-calage "+AMCProjectPath+"DOC-calage.xy");
             Process proc = Runtime.getRuntime().exec("auto-multiple-choice prepare --mode s --prefix "+AMCProjectPath+" /home/DEPTA/DATA/genbin/tex.tex --out-sujet "+AMCProjectPath+"DOC-subject.pdf --out-corrige "+AMCProjectPath+"DOC-correction.pdf --data "+AMCProjectPath+"/data --out-calage "+AMCProjectPath+"DOC-calage.xy");
             proc.waitFor();
-            //auto-multiple-choice prepare --mode s --prefix /Users/em/MC-Projects/10 /Users/em/MC-Projects/genbin/tex.tex --out-sujet /Users/em/MC-Projects/10/DOC-subject.pdf --out-corrige /Users/em/MC-Projects/10/DOC-correction.pdf --data  /Users/em/MC-Projects/10/data --out-calage /Users/em/MC-Projects/10/DOC-calage.xy
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(proc.getInputStream()));
 
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(proc.getErrorStream()));
-
-// Read the output from the command
-            System.out.println("Here is the standard output of the command:\n");
-            String s = null;
-            while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
-            }
-
-// Read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
-            }
 
             //Runtime.getRuntime().exec("rm -r /Users/em/MC-Projects/genbin" );
-            //Runtime.getRuntime().exec("rm -r /home/DEPTA/DATA/genbin" );
+            Runtime.getRuntime().exec("rm -r /home/DEPTA/DATA/genbin" );
             File output = new File(AMCProjectPath+"/catalog.pdf");
             if(!output.exists()){
                 return false;
