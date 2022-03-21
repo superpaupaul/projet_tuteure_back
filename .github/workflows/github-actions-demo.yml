@@ -9,6 +9,6 @@ jobs:
         with:
           local: test
           remote: scp/directory
-          host: ${{ secrets.HOST }}
+          host: krapo.me
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
