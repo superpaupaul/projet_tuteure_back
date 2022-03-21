@@ -18,7 +18,7 @@ public class QCMServices {
     }
     public String GenerateQCM(QCM qcm){
         if(bashServices.generateArborescence(((Integer)qcm.getIdcreateur()).toString(),qcm.getId().toString()) && bashServices.generateCopies(qcm)){
-            return "/home/DEPTA/DATA/"+qcm.getIdcreateur()+"/"+qcm.getId()+"/catalog.pdf";
+            return "krapo.me/MC-PDF/"+qcm.getId()+"catalog.pdf";
         }
         return "";
     }
