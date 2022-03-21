@@ -42,7 +42,7 @@ public class BashServices {
             if(!output.exists()){
                 return false;
             }
-            proc = Runtime.getRuntime().exec("cp /home/DEPTA/DATA/"qcm.getIdcreateur()+"/"+qcm.getId()+"/catalog.pdf /var/www/html/MC-PDF/"+qcm.getId()+"catalog.pdf");
+            proc = Runtime.getRuntime().exec("cp /home/DEPTA/DATA/"+qcm.getIdcreateur()+"/"+qcm.getId()+"/catalog.pdf /var/www/html/MC-PDF/"+qcm.getId()+"catalog.pdf");
             proc.waitFor();
 
             return true;
