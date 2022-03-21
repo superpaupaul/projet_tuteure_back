@@ -10,7 +10,7 @@ import java.io.IOException;
 public class BashServices {
 
     public static Boolean generateArborescence(String userid, String QCMID){
-        Process process;
+        Process process
         try {
             process = Runtime.getRuntime().exec("/Users/em/MC-Projects/new-project.sh " + userid + " " + QCMID);
             return true;
