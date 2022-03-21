@@ -6,6 +6,7 @@ import projet.depta.entities.*;
 import projet.depta.repositories.QCMRepository;
 import projet.depta.repositories.QuestionRepository;
 import projet.depta.repositories.UserRepository;
+import projet.depta.services.QCMServices;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,6 +19,9 @@ import java.util.Optional;
 @RestController
 public class QCMController {
 
+    @Autowired
+    QCMServices qcmServices;
+
     @PostMapping("/api/v1/qcm/new")
     public Long newQCM(@RequestBody QCM qcm){
         return qcmRepository.save(qcm).getId();
@@ -27,6 +31,11 @@ public class QCMController {
     public @ResponseBody
     Optional<QCM> getQCM(@PathVariable(value="id") int id){
         return qcmRepository.findById((long)id);
+    }
+
+    @PostMapping("/api/v1/qcm/generate")
+    public String generateQCM(@RequestBody QCM qcm){
+        return qcmServices.GenerateQCM(qcm);
     }
 
     public Boolean editQCM(QCM qcm){

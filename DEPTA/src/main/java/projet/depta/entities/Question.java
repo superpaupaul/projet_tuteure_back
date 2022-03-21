@@ -74,8 +74,14 @@ public class Question {
             return  texText;
         }
         if(this.typeDeQuestion == TypeDeQuestion.MULTIPLE){
+            for(Option option : this.getOptions().getOptionsset()){
+                if(option.getTypeOption() == TypeOption.PTSMAUVAISEREPONSE){
+                    String ptsmauvaisereponse = option.getValeur();
+                }
+            }
+
             String texText = "\\element{"+this.getTheme()+"}{\n\t" +
-                    "\\begin{questionmult}{"+this.getIntitule()+"}\\bareme{formula=NBC-";
+                    "\\begin{questionmult}"+this.getIntitule()+"\n\t\t\\bareme{formula=NBC-";
 
             for(Option option : this.getOptions().getOptionsset()){
                 if(option.getTypeOption() == TypeOption.COEFFICIENTMAUVAISEREPONSE){
