@@ -11,6 +11,7 @@ import projet.depta.services.QCMServices;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PostUpdate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,21 +23,37 @@ public class QCMController {
     @Autowired
     QCMServices qcmServices;
 
-    @PostMapping("/api/v1/qcm/new")
+    @PostMapping("/qcm")
     public Long newQCM(@RequestBody QCM qcm){
-        return qcmRepository.save(qcm).getId();
+        return qcmServices.save(qcm);
     }
 
-    @GetMapping("/api/v1/qcm/get/{id}")
-    public @ResponseBody
-    Optional<QCM> getQCM(@PathVariable(value="id") int id){
-        return qcmRepository.findById((long)id);
+    @PutMapping("/qcm")
+    public Long generateQCM(@RequestBody QCM qcm){
+        return qcmServices.updateQCM(qcm);
     }
 
-    @PostMapping("/api/v1/qcm/generate")
-    public String generateQCM(@RequestBody QCM qcm){
-        return qcmServices.GenerateQCM(qcm);
+    @GetMapping("/qcm/{id}")
+    QCM getQCM(@PathVariable int id){
+        return qcmServices.getQCM((long)id);
     }
+
+    @DeleteMapping("/qcm/{id}")
+    public Boolean deleteQCM(@PathVariable int id){
+        return qcmServices.deleteQCM(id);
+    }
+
+    @GetMapping("/qcms/{id}")
+    List<QCM> getAllQCM(@PathVariable int id){
+        return qcmServices.getAllQCM(id);
+    }
+
+    @PostMapping("/qcm/{id}/generate")
+    public String updateQCM(@PathVariable int id){
+        return qcmServices.generateQCM(id);
+    }
+
+
 
     public Boolean editQCM(QCM qcm){
         return true;
@@ -46,14 +63,6 @@ public class QCMController {
         return true;
     }
 
-    public List<QCM> getQCMForUser(User user){
-        return new ArrayList<QCM>();
-    }
-
-
-    public QCM getQCM(Long id){
-        return new QCM();
-    }
 
     public Boolean postAnswers(Long id){
         return true;

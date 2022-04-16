@@ -60,11 +60,6 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.6.2</version>
         </dependency>
-        <dependency>
-            <groupId>projet</groupId>
-            <artifactId>DEPTA</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>
