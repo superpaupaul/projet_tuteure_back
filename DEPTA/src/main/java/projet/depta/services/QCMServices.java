@@ -1,20 +1,22 @@
 package projet.depta.services;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import projet.depta.entities.QCM;
+import projet.depta.entities.User;
 import projet.depta.repositories.QCMRepository;
 
+import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class QCMServices {
-
-    @Autowired
-    BashServices bashServices;
-
     @Autowired
     QCMRepository repository;
 
@@ -32,10 +34,10 @@ public class QCMServices {
     }
     public String generateQCM(long id){
         Optional<QCM> qcm = repository.findById(id);
-        if(!qcm.isPresent()){
-            return "Unknow QCM";
+        if(qcm.isEmpty()){
+            return "Unknow QCM or missing permission";
         }
-        if(bashServices.generateArborescence(((Integer)qcm.get().getIdcreateur()).toString(),qcm.get().getId().toString()) && bashServices.generateCopies(qcm.get())){
+        if(BashServices.generateArborescence(((Integer)qcm.get().getIdcreateur()).toString(),qcm.get().getId().toString()) && BashServices.generateCopies(qcm.get())){
             return "krapo.me/MC-PDF/"+qcm.get().getId()+"catalog.pdf";
         }
         return "";
@@ -43,7 +45,7 @@ public class QCMServices {
 
     public Boolean deleteQCM(long id) {
         Optional<QCM> qcm = repository.findById(id);
-        if(!qcm.isPresent()){
+        if(qcm.isEmpty()){
             return false;
         }
         repository.deleteById(id);
@@ -59,10 +61,6 @@ public class QCMServices {
     }
 
     public QCM getQCM(long id) {
-        Optional<QCM> qcm = repository.findById(id);
-        if (!qcm.isPresent()) {
-            return null;
-        }
-        return qcm.get();
+        return repository.findById(id).orElse(null);
     }
 }

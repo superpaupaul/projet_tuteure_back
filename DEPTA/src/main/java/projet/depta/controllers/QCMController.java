@@ -1,6 +1,8 @@
 package projet.depta.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projet.depta.entities.*;
 import projet.depta.repositories.QCMRepository;
@@ -29,26 +31,31 @@ public class QCMController {
     }
 
     @PutMapping("/qcm")
+    @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public Long generateQCM(@RequestBody QCM qcm){
         return qcmServices.updateQCM(qcm);
     }
 
     @GetMapping("/qcm/{id}")
+    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     QCM getQCM(@PathVariable int id){
         return qcmServices.getQCM((long)id);
     }
 
     @DeleteMapping("/qcm/{id}")
-    public Boolean deleteQCM(@PathVariable int id){
+    @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
+    public Boolean deleteQCM(@PathVariable int id, @RequestBody QCM qcm){
         return qcmServices.deleteQCM(id);
     }
 
     @GetMapping("/qcms/{id}")
+    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     List<QCM> getAllQCM(@PathVariable int id){
         return qcmServices.getAllQCM(id);
     }
 
     @PostMapping("/qcm/{id}/generate")
+    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public String updateQCM(@PathVariable int id){
         return qcmServices.generateQCM(id);
     }
