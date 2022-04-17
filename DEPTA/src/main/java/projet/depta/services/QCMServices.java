@@ -43,9 +43,9 @@ public class QCMServices {
         return "";
     }
 
-    public Boolean deleteQCM(long id) {
+    public Boolean deleteQCM(long id,QCM qcmrecu) {
         Optional<QCM> qcm = repository.findById(id);
-        if(qcm.isEmpty()){
+        if(qcm.isEmpty() || !(qcm.get().compareTo(qcmrecu))){
             return false;
         }
         repository.deleteById(id);
@@ -57,7 +57,10 @@ public class QCMServices {
     }
 
     public Long updateQCM(QCM qcm) {
-        return repository.save(qcm).getId();
+        if(!repository.findById(qcm.getId()).isEmpty()){
+            return repository.save(qcm).getId();
+        }
+        return null;
     }
 
     public QCM getQCM(long id) {
