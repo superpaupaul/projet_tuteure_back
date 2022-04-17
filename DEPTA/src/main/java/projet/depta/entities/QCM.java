@@ -39,6 +39,28 @@ public class QCM {
         this.entete = entete; this.titre = titre; this.questions = questions; this.isRandomized = isRandomized; this.idcreateur = createur;
     }
 
+    public Boolean compareTo(QCM qcm){
+        if(!(Objects.equals(qcm.getId(), this.getId()))){
+            return false;
+        }
+        if(!(qcm.getIsRandomized() == this.getIsRandomized())){
+            return false;
+        }
+        if(!(qcm.getIdcreateur() == this.getIdcreateur())){
+            return false;
+        }
+        if(!(qcm.getEntete().equals(this.getEntete()))){
+            return false;
+        }
+        if(!(qcm.getQuestions().equals(this.getQuestions()))){
+            return false;
+        }
+        if(!(qcm.getThemesDeQuestions().equals(this.getThemesDeQuestions()))){
+            return false;
+        }
+        return qcm.getTitre().equals(this.getTitre());
+    }
+
     public String toTex(){
 
         String texText = "%%DEBUT DU QCM%%\n\n"+
