@@ -25,35 +25,41 @@ public class QCMController {
     @Autowired
     QCMServices qcmServices;
 
+    //Ok
     @PostMapping("/qcm")
     public Long newQCM(@RequestBody QCM qcm){
         return qcmServices.save(qcm);
     }
 
+    //Ok
     @PutMapping("/qcm")
     @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public Long generateQCM(@RequestBody QCM qcm){
         return qcmServices.updateQCM(qcm);
     }
 
+    //Ok
     @GetMapping("/qcm/{id}")
     @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     QCM getQCM(@PathVariable int id){
         return qcmServices.getQCM((long)id);
     }
 
+    //Ok
     @DeleteMapping("/qcm/{id}")
     @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public Boolean deleteQCM(@PathVariable int id, @RequestBody QCM qcm){
-        return qcmServices.deleteQCM(id);
+        return qcmServices.deleteQCM(id,qcm);
     }
 
+    //Ok
     @GetMapping("/qcms/{id}")
     @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     List<QCM> getAllQCM(@PathVariable int id){
         return qcmServices.getAllQCM(id);
     }
 
+    //Ok
     @PostMapping("/qcm/{id}/generate")
     @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public String updateQCM(@PathVariable int id){
