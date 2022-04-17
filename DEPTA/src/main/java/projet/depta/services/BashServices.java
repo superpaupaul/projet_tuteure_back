@@ -1,5 +1,6 @@
 package projet.depta.services;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import projet.depta.entities.QCM;
 
@@ -21,6 +22,7 @@ public class BashServices {
         }
     }
 
+    @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public static Boolean generateCopies(QCM qcm){
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("/home/DEPTA/DATA/genbin/tex.tex"));
