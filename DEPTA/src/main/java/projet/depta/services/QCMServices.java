@@ -13,6 +13,7 @@ import projet.depta.repositories.QCMRepository;
 import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -56,9 +57,10 @@ public class QCMServices {
         return repository.save(qcm).getId();
     }
 
-    public Long updateQCM(QCM qcm) {
-        if(!repository.findById(qcm.getId()).isEmpty()){
-            return repository.save(qcm).getId();
+    public Long updateQCM(QCM qcmrecu) {
+        Optional<QCM> qcm = repository.findById(qcmrecu.getId());
+        if(qcm.isPresent() && Objects.equals(qcmrecu.getId(), qcm.get().getId()) && qcmrecu.getIdcreateur() == qcm.get().getIdcreateur()){
+            return repository.save(qcmrecu).getId();
         }
         return null;
     }
