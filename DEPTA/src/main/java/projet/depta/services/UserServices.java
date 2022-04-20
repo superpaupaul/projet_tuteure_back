@@ -31,7 +31,6 @@ public class UserServices implements UserDetailsService {
      */
     public Long newUser(User user) {
         if(user.getEmail() != null ){
-            System.out.println(user.getGroupes());
             Pattern p = Pattern.compile("^(.+)@(.+)$");
             Matcher m = p.matcher(user.getEmail() );
             if(m.find()){
@@ -44,7 +43,7 @@ public class UserServices implements UserDetailsService {
                 return repository.save(user).getId();
             }
             else if(user.getEmail() == ""){
-                return 0L;
+                return (long)-5;
             }
             else{return (long) -2;}
         }

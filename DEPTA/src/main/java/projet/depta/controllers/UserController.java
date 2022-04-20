@@ -1,6 +1,7 @@
 package projet.depta.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projet.depta.entities.QCM;
 import projet.depta.entities.User;
@@ -16,19 +17,16 @@ public class UserController {
     @Autowired
     UserServices userServices;
 
-    @PostMapping("/api/v1/user/newUser")
-    public Long newUser(@RequestParam Long caller, @RequestBody User user){
-        if(userServices.isAdmin(caller)){
-            return userServices.newUser(user);
-        }
-        return (long)-1;
+    @PreAuthorize("authentication.principal.isAdmin")
+    @PostMapping("/user")
+    public Long newUser(@RequestBody User user){
+        return userServices.newUser(user);
     }
 
-    @PostMapping("/api/v1/")
-
-    public Boolean removeUser(User caller, User user){
+    @PreAuthorize("authentication.principal.isAdmin")
+    @DeleteMapping("/user/{id}")
+    public Boolean removeUser(@PathVariable int id){
         return true;
-
     }
 
     public Boolean checkUserConnection(User user){
