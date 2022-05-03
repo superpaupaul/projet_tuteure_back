@@ -2,6 +2,7 @@ package projet.depta.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import projet.depta.entities.QCM;
 import projet.depta.entities.User;
@@ -17,11 +18,25 @@ public class UserController {
     @Autowired
     UserServices userServices;
 
-    @PreAuthorize("authentication.principal.isAdmin")
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @PostMapping("/user")
     public Long newUser(@RequestBody User user){
+        System.out.println(user.toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userServices.newUser(user);
     }
+
+    @PreAuthorize("authentication.principal.isAdmin")
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable int id){return userServices.getById(id);}
+
+    @PreAuthorize("authentication.principal.isAdmin")
+    @GetMapping("/user/{username}")
+    public User getUser(@PathVariable String username){return userServices.getByUsername(username);}
+
 
     @PreAuthorize("authentication.principal.isAdmin")
     @DeleteMapping("/user/{id}")

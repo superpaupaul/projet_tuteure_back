@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import projet.depta.entities.User;
 import projet.depta.repositories.UserRepository;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @Service
@@ -18,6 +21,7 @@ public class UserServices implements UserDetailsService {
 
     @Autowired
     private UserRepository repository;
+
 
     public Boolean isAdmin(Long id){
         if(repository.existsById(id)){
@@ -34,7 +38,7 @@ public class UserServices implements UserDetailsService {
             Pattern p = Pattern.compile("^(.+)@(.+)$");
             Matcher m = p.matcher(user.getEmail() );
             if(m.find()){
-                if(repository.findByEmail(user.getEmail()).size() != 0 && repository.findByUsername(user.getEmail()).size() != 0){
+                if(repository.findByEmail(user.getEmail()).size() != 0 || repository.findByUsername(user.getUsername()).size() != 0){
                     return (long) -3;
                 }
                 if(user.getIsAdmin()){
@@ -42,7 +46,7 @@ public class UserServices implements UserDetailsService {
                 }
                 return repository.save(user).getId();
             }
-            else if(user.getEmail() == ""){
+            else if(Objects.equals(user.getEmail(), "")){
                 return (long)-5;
             }
             else{return (long) -2;}
@@ -55,6 +59,10 @@ public class UserServices implements UserDetailsService {
             return repository.findByUsername(username).get(1);
         }
         return null;
+    }
+
+    public User getById(long id){
+        return repository.findById(id).orElse(null);
     }
 
     public String connect(String identifiant, String mdp){
@@ -70,8 +78,7 @@ public class UserServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username);
-        System.out.println(repository.findByUsername(username));
+        System.out.println("1");
         if(repository.findByUsername(username).size() ==1){
             return repository.findByUsername(username).get(0);
         }
