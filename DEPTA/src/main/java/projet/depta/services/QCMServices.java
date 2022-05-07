@@ -38,6 +38,7 @@ public class QCMServices {
         if(qcm.isEmpty()){
             return "Unknow QCM or missing permission";
         }
+        System.out.println(qcm.get().toTex());
         if(BashServices.generateArborescence(((Integer)qcm.get().getIdcreateur()).toString(),qcm.get().getId().toString()) && BashServices.generateCopies(qcm.get())){
             return "krapo.me/MC-PDF/"+qcm.get().getId()+"catalog.pdf";
         }

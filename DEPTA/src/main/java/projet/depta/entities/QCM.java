@@ -22,9 +22,9 @@ public class QCM {
     @Column(name="titre")
     private String titre;
 
-    @Column(name="questions")
+    @Column(name="categories")
     @OneToMany(cascade=CascadeType.ALL)
-    private List<Question> questions;
+    private List<Categorie> categories;
 
     @Column(name="isRandomized")
     private Boolean isRandomized;
@@ -35,9 +35,6 @@ public class QCM {
 
     public QCM(){}
 
-    public QCM(String entete, String titre, List<Question> questions, Boolean isRandomized, int createur){
-        this.entete = entete; this.titre = titre; this.questions = questions; this.isRandomized = isRandomized; this.idcreateur = createur;
-    }
 
     public Boolean compareTo(QCM qcm){
         if(!(Objects.equals(qcm.getId(), this.getId()))){
@@ -52,7 +49,7 @@ public class QCM {
         if(!(qcm.getEntete().equals(this.getEntete()))){
             return false;
         }
-        if(!(qcm.getQuestions().equals(this.getQuestions()))){
+        if(!(qcm.getCategories().equals(this.getCategories()))){
             return false;
         }
         if(!(qcm.getThemesDeQuestions().equals(this.getThemesDeQuestions()))){
@@ -72,9 +69,8 @@ public class QCM {
                 "\n" +
                 "\\begin{document}\n\n"+
                 "\\setdefaultgroupmode{withoutreplacement}\n\n\n";
-        for(Question q : questions){
-            texText+= q.toTex() + "\n";
-
+        for(Categorie c : categories){
+            for(Question q : c.getQuestions()) texText += q.toTex() + "\n";
         }
 
         texText += "\n\n%% HEADER %%\n\n"+
@@ -114,8 +110,8 @@ public class QCM {
 
     public ArrayList<String> getThemesDeQuestions(){
         ArrayList<String> themesDeQuestions = new ArrayList<String>();
-        for(Question question : this.questions){
-            themesDeQuestions.add(question.getTheme());
+        for(Categorie categorie : this.categories){
+            themesDeQuestions.add(categorie.getNom());
         }
         Set<String> set = new HashSet<>(themesDeQuestions);
         themesDeQuestions.clear();

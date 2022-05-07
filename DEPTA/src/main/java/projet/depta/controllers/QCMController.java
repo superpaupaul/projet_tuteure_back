@@ -90,7 +90,7 @@ public class QCMController {
     @Autowired
     private UserRepository userRepository;
 
-
+    /*
     @ResponseBody
     @RequestMapping("/")
     public QCM home() {
@@ -166,7 +166,7 @@ public class QCMController {
 
         return qcm;
         //return questionRepository.findByTypeDeQuestion(TypeDeQuestion.UNIQUE);
-    }
+    }*/
 
     /*
     @ResponseBody

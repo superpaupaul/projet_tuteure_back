@@ -34,19 +34,16 @@ public class Question {
     @JoinColumn(name = "options",nullable = false)
     private Options options;
 
-    @Column(name="theme")
-    private String theme;
+    @Column(name="categorie")
+    private String categorie;
 
 
     public Question(){}
 
-    public Question(String intitule, TypeDeQuestion typeDeQuestion, Set<Reponse> reponses, Options options, String theme){
-        this.intitule = intitule; this.typeDeQuestion = typeDeQuestion; this.reponses = reponses; this.options = options;this.theme=theme;
-    }
 
     public String toTex(){
         if(this.typeDeQuestion == TypeDeQuestion.UNIQUE){
-            String texText = "\\element{"+this.getTheme()+"}{\n\t" +
+            String texText = "\\element{"+this.getCategorie()+"}{\n\t" +
                     "\\begin{question}{"+this.getIntitule()+"}\\bareme{";
             for(Option option : this.getOptions().getOptionsset()){
                 if(option.getTypeOption() == TypeOption.BAREME){
@@ -80,7 +77,7 @@ public class Question {
                 }
             }
 
-            String texText = "\\element{"+this.getTheme()+"}{\n\t" +
+            String texText = "\\element{"+this.getCategorie()+"}{\n\t" +
                     "\\begin{questionmult}"+this.getIntitule()+"\n\t\t\\bareme{formula=NBC-";
 
             for(Option option : this.getOptions().getOptionsset()){
@@ -106,7 +103,7 @@ public class Question {
             return  texText;
         }
         if(this.typeDeQuestion == TypeDeQuestion.OUVERTE) {
-            String texText = "\\element{" + this.getTheme() + "}{\n\t" +
+            String texText = "\\element{" + this.getCategorie() + "}{\n\t" +
                     "\\begin{question}{" + this.getIntitule() + "}\n" +
                     this.getIntitule() + "\n\t\t" +
                     "\\AMCOpen{";
@@ -173,7 +170,7 @@ public class Question {
                     ptsmauvaisereponse = option.getValeur();
                 }
             }
-            return"\\element{"+this.getTheme()+"}{\n\t" +
+            return"\\element{"+this.getCategorie()+"}{\n\t" +
                     "\\begin{questionmultx}{"+this.getIntitule()+"}\n\t"+
                     this.getIntitule() +"\n\t\t"+
                     "\\begin{center}\n\t\t"+
