@@ -31,12 +31,10 @@ public class UserController {
 
     @PreAuthorize("authentication.principal.isAdmin")
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable int id){return userServices.getById(id);}
-
-    @PreAuthorize("authentication.principal.isAdmin")
-    @GetMapping("/user/{username}")
-    public User getUser(@PathVariable String username){return userServices.getByUsername(username);}
-
+    public User getUser(@PathVariable String id){
+        try{ return userServices.getById(Integer.parseInt(id)); }
+        catch (NumberFormatException nfe){ return userServices.getByUsername(id); }
+    }
 
     @PreAuthorize("authentication.principal.isAdmin")
     @DeleteMapping("/user/{id}")
