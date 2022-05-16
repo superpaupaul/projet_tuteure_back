@@ -13,6 +13,7 @@ import projet.depta.repositories.UserRepository;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -60,10 +61,16 @@ public class UserServices implements UserDetailsService {
             Pattern p = Pattern.compile("^(.+)@(.+)$");
             Matcher m = p.matcher(user.getEmail() );
             if(m.find()){
-                return repository.save(user).getId();
+                User userLocal = this.getById(user.getId());
+                if( userLocal!= null){
+                    user.setPassword(userLocal.getPassword());
+                    System.out.println("User username :" + user.getUsername());
+                    System.out.println("User password :" + user.getPassword());
+                    return repository.save(user).getId();
+                }
             }
             else if(Objects.equals(user.getEmail(), "")){
-                return (long)-5;
+                return (long)-3;
             }
             else{return (long) -2;}
         }
@@ -71,36 +78,15 @@ public class UserServices implements UserDetailsService {
     }
 
     public User getByUsername(String username){
-        if(repository.findByUsername(username).size() ==1){
-            User toreturn = repository.findByUsername(username).get(0);
-            toreturn.setPassword("");
-            System.out.println(toreturn.getPassword());
-            return toreturn;
+        List<User> userloaded =  repository.findByUsername(username);
+        if(userloaded.size() ==1){
+            return repository.findByUsername(username).get(0);
         }
         return null;
     }
 
     public User getById(long id){
-        Optional<User> fetched = repository.findById(id);
-        if(fetched.isPresent()){
-            User fetchedU = fetched.get();
-            fetchedU.setPassword("");
-            return fetched.get();
-        }
-        else{
-            return null;
-        }
-    }
-
-    public String connect(String identifiant, String mdp){
-        if(repository.findByUsernameAndPassword(identifiant, mdp).isPresent()){
-            return Hashing.sha256()
-                    .hashString(identifiant+new Date(), StandardCharsets.UTF_8)
-                    .toString();
-        }
-        else{
-            return "-1";
-        }
+        return repository.findById(id).orElse(null);
     }
 
     @Override

@@ -38,8 +38,16 @@ public class UserController {
     @PreAuthorize("authentication.principal.isAdmin")
     @GetMapping("/user/{id}")
     public User getUser(@PathVariable String id){
-        try{ return userServices.getById(Integer.parseInt(id)); }
-        catch (NumberFormatException nfe){ return userServices.getByUsername(id); }
+        try{
+            User toreturn = userServices.getById(Integer.parseInt(id));
+            toreturn.setPassword("");
+            return toreturn;
+        }
+        catch (NumberFormatException nfe){
+            User toreturn = userServices.getByUsername(id);
+            toreturn.setPassword("");
+            return toreturn;
+        }
     }
 
     @PreAuthorize("authentication.principal.isAdmin")
