@@ -18,7 +18,6 @@ public class UserController {
     @Autowired
     UserServices userServices;
 
-
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -36,24 +35,35 @@ public class UserController {
     }
 
     @PreAuthorize("authentication.principal.isAdmin")
+    @PutMapping("/user/resetpassword")
+    public Long resetpassword(@RequestBody User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userServices.resetPassword(user);
+    }
+
+    @PreAuthorize("authentication.principal.isAdmin")
     @GetMapping("/user/{id}")
     public User getUser(@PathVariable String id){
         try{
             User toreturn = userServices.getById(Integer.parseInt(id));
-            toreturn.setPassword("");
+            if(toreturn != null){
+                toreturn.setPassword("");
+            }
             return toreturn;
         }
         catch (NumberFormatException nfe){
             User toreturn = userServices.getByUsername(id);
-            toreturn.setPassword("");
+            if(toreturn != null){
+                toreturn.setPassword("");
+            }
             return toreturn;
         }
     }
 
     @PreAuthorize("authentication.principal.isAdmin")
     @DeleteMapping("/user/{id}")
-    public Boolean removeUser(@PathVariable int id){
-        return true;
+    public Boolean removeUser(@PathVariable String id){
+        return userServices.removeUser(id);
     }
 
     public Boolean checkUserConnection(User user){

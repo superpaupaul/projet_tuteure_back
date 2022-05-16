@@ -69,12 +69,10 @@ public class UserServices implements UserDetailsService {
                     return repository.save(user).getId();
                 }
             }
-            else if(Objects.equals(user.getEmail(), "")){
-                return (long)-3;
-            }
-            else{return (long) -2;}
+            else if(Objects.equals(user.getEmail(), "")) return -3;
+            else return -2;
         }
-        return (long) -1;
+        return -1;
     }
 
     public User getByUsername(String username){
@@ -87,6 +85,29 @@ public class UserServices implements UserDetailsService {
 
     public User getById(long id){
         return repository.findById(id).orElse(null);
+    }
+
+    public Boolean removeUser(String id){
+        System.out.println(id);
+        try{
+            User user = getById(Integer.parseInt(id));
+            if(user != null){
+                repository.delete(user);
+                return true;
+            }
+        }
+        catch (NumberFormatException nfe){
+            User user = getByUsername(id);
+            if(user != null){
+                repository.delete(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Long resetPassword(User user) {
+        return repository.save(user).getId();
     }
 
     @Override
