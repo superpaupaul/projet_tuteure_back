@@ -22,11 +22,17 @@ public class UserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("authentication.principal.isAdmin")
     @PostMapping("/user")
     public Long newUser(@RequestBody User user){
-        System.out.println(user.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userServices.newUser(user);
+    }
+
+    @PreAuthorize("authentication.principal.isAdmin")
+    @PutMapping("/user")
+    public Long editUser(@RequestBody User user){
+        return userServices.editUser(user);
     }
 
     @PreAuthorize("authentication.principal.isAdmin")

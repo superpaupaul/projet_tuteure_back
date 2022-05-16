@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import projet.depta.entities.Option;
 import projet.depta.entities.User;
 import projet.depta.repositories.UserRepository;
 
@@ -54,15 +55,41 @@ public class UserServices implements UserDetailsService {
         return (long) -1;
     }
 
+    public long editUser(User user){
+        if(user.getEmail() != null ){
+            Pattern p = Pattern.compile("^(.+)@(.+)$");
+            Matcher m = p.matcher(user.getEmail() );
+            if(m.find()){
+                return repository.save(user).getId();
+            }
+            else if(Objects.equals(user.getEmail(), "")){
+                return (long)-5;
+            }
+            else{return (long) -2;}
+        }
+        return (long) -1;
+    }
+
     public User getByUsername(String username){
         if(repository.findByUsername(username).size() ==1){
-            return repository.findByUsername(username).get(1);
+            User toreturn = repository.findByUsername(username).get(0);
+            toreturn.setPassword("");
+            System.out.println(toreturn.getPassword());
+            return toreturn;
         }
         return null;
     }
 
     public User getById(long id){
-        return repository.findById(id).orElse(null);
+        Optional<User> fetched = repository.findById(id);
+        if(fetched.isPresent()){
+            User fetchedU = fetched.get();
+            fetchedU.setPassword("");
+            return fetched.get();
+        }
+        else{
+            return null;
+        }
     }
 
     public String connect(String identifiant, String mdp){
