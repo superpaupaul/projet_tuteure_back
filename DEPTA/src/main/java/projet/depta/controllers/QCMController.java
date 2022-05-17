@@ -54,7 +54,7 @@ public class QCMController {
 
     //Ok
     @GetMapping("/qcms/{id}")
-    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
+    @PostAuthorize("returnObject.get(1).idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     List<QCM> getAllQCM(@PathVariable int id){
         return qcmServices.getAllQCM(id);
     }

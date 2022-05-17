@@ -77,16 +77,20 @@ public class QCM {
                 "\\onecopy{10}{\n"+
                 "\\noindent{\\bf QCM  \\hfill TEST}\n" +
                 "\n" +
-                "\\vspace*{.5cm}\n" +
-                "\\begin{minipage}{.4\\linewidth}\n" +
-                "  \\centering\\large\\bf "+this.getEntete()+"\n" +
-                "\\end{minipage}\n" +
-                "\\namefield{\\fbox{\\begin{minipage}{.5\\linewidth}\n" +
-                "Prénom et nom:\n" +
-                "\n" +
-                "\\vspace*{.5cm}\\dotfill\n" +
-                "\\vspace*{1mm}\n" +
-                "\\end{minipage}}}\n\n"+
+                "{\\setlength{\\parindent}{0pt}\\hspace*{\\fill}\\AMCcodeGridInt{etu}{8}\\hspace*{\\fill}\n"+
+                "\\begin{minipage}[b]{6.5cm}\n"+
+                "$\\longleftarrow{}$\\hspace{0pt plus 1cm} Merci de remplir votre numéro d'étudiant ici et votre prénom et nom en dessous.\n\n"+
+                "\\vspace{3ex}\n\n"+
+                "\\hfill\\namefield{\\fbox{\n\t"+
+                "\\begin{minipage}{.9\\linewidth}\n\t\t"+
+                "Prénom et nom :\n\n\t\t"+
+                "\\vspace*{.5cm}\\dotfill\n\n\t\t"+
+                "\\vspace*{.5cm}\\dotfill\n\n\t\t"+
+                "\\vspace*{1mm}\n\t"+
+                "\\end{minipage}\n"+
+                "}}\\hfill\\vspace{5ex}\\end{minipage}\\hspace*{\\fill}"+
+
+                    "}"+
                 "\n\n%% FIN HEADER %%\n\n";
 
 
