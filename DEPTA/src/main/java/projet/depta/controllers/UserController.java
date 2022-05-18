@@ -1,6 +1,7 @@
 package projet.depta.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +41,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userServices.resetPassword(user);
     }
-
-    @PreAuthorize("authentication.principal.isAdmin")
+    @PostAuthorize("authentication.principal.isAdmin or returnObject.id == authentication.principal.id")
     @GetMapping("/user/{id}")
     public User getUser(@PathVariable String id){
         try{
