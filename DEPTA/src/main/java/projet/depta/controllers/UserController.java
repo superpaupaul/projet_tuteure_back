@@ -41,6 +41,8 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userServices.resetPassword(user);
     }
+
+
     @PostAuthorize("authentication.principal.isAdmin or returnObject.id == authentication.principal.id")
     @GetMapping("/user/{id}")
     public User getUser(@PathVariable String id){

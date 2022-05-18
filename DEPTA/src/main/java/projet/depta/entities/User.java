@@ -38,15 +38,7 @@ public class User implements UserDetails {
     private Boolean isAdmin;
 
 
-    @Column(name="groupes")
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Groupe> groupes;
-
     public User(){}
-
-    public User(String nom, String prenom, String mdp, Boolean isAdmin, ArrayList<Groupe> groupes){
-        this.nom=nom;this.prenom=prenom;this.password=mdp;this.isAdmin=isAdmin;this.groupes=groupes;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -86,7 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             response.setStatus(HttpServletResponse.SC_OK);
 
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            ((User)authentication.getPrincipal()).setGroupes(null);
             ((User)authentication.getPrincipal()).setPassword("");
             String json = ow.writeValueAsString(authentication.getPrincipal());
             response.getWriter().append(json);
