@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class DeptaApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(DeptaApplication.class, args);
     }

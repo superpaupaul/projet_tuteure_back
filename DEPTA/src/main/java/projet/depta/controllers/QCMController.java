@@ -25,41 +25,41 @@ public class QCMController {
     @Autowired
     QCMServices qcmServices;
 
-    //Ok
+    //Créé un nouveau QCM dans la BD
     @PostMapping("/qcm")
     public Long newQCM(@RequestBody QCM qcm){
         return qcmServices.save(qcm);
     }
 
-    //Ok
+    //Modifie un QCM
     @PutMapping("/qcm")
     @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public Long generateQCM(@RequestBody QCM qcm){
         return qcmServices.updateQCM(qcm);
     }
 
-    //Ok
+    //récupère un QCM à partir d'un id
     @GetMapping("/qcm/{id}")
-    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
+    //@PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     QCM getQCM(@PathVariable int id){
         return qcmServices.getQCM((long)id);
     }
 
-    //Ok
+    //Supprime un qcm à partir d'un id
     @DeleteMapping("/qcm/{id}")
     @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public Boolean deleteQCM(@PathVariable int id, @RequestBody QCM qcm){
         return qcmServices.deleteQCM(id,qcm);
     }
 
-    //Ok
+    //récupère les qcms d'un utilisateur
     @GetMapping("/qcms/{id}")
     @PostAuthorize("returnObject.get(1).idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     List<QCM> getAllQCM(@PathVariable int id){
         return qcmServices.getAllQCM(id);
     }
 
-    //Ok
+    //Génère un QCM à partir de son id
     @PostMapping("/qcm/{id}/generate")
     @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public String updateQCM(@PathVariable int id){

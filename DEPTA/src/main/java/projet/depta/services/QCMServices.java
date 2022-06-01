@@ -19,11 +19,11 @@ import java.util.Optional;
 @Service
 public class QCMServices {
     @Autowired
-    QCMRepository repository;
+    private QCMRepository repository;
 
 
     public List<QCM> getAllQCM(int idCreateur){
-        return new ArrayList<>(repository.findByIdcreateur(idCreateur));
+        return repository.findByIdcreateur(idCreateur);
     }
 
     public static void newQCM(QCM qcm){
@@ -45,7 +45,7 @@ public class QCMServices {
         return "";
     }
 
-    public Boolean deleteQCM(long id,QCM qcmrecu) {
+    public Boolean deleteQCM(int id,QCM qcmrecu) {
         Optional<QCM> qcm = repository.findById(id);
         if(qcm.isEmpty() || !(qcm.get().compareTo(qcmrecu))){
             return false;
