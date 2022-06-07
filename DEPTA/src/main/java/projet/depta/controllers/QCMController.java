@@ -34,7 +34,7 @@ public class QCMController {
     //Ok
     @PutMapping("/qcm")
     @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
-    public Long generateQCM(@RequestBody QCM qcm){
+    public Long updateQCM(@RequestBody QCM qcm){
         return qcmServices.updateQCM(qcm);
     }
 
@@ -62,7 +62,7 @@ public class QCMController {
     //Ok
     @PostMapping("/qcm/{id}/generate")
     @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
-    public String updateQCM(@PathVariable int id){
+    public QCM generateQCM(@PathVariable int id){
         return qcmServices.generateQCM(id);
     }
 

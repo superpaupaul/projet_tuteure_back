@@ -33,16 +33,16 @@ public class QCMServices {
     public static void editQCM(){
 
     }
-    public String generateQCM(long id){
+    public QCM generateQCM(long id){
         Optional<QCM> qcm = repository.findById(id);
         if(qcm.isEmpty()){
-            return "Unknow QCM or missing permission";
+            return null;
         }
         System.out.println(qcm.get().toTex());
         if(BashServices.generateArborescence(((Integer)qcm.get().getIdcreateur()).toString(),qcm.get().getId().toString()) && BashServices.generateCopies(qcm.get())){
-            return "krapo.me/MC-PDF/"+qcm.get().getId()+"catalog.pdf";
+            return qcm.get();
         }
-        return "";
+        return null;
     }
 
     public Boolean deleteQCM(long id,QCM qcmrecu) {
