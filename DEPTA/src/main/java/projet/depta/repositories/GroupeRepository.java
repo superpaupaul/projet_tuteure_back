@@ -7,8 +7,8 @@ import projet.depta.entities.QCM;
 import projet.depta.entities.Question;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GroupeRepository extends CrudRepository<Groupe,Long> {
-
-    List<Groupe> findByIdcreateur(long idcreateur);
+    Optional<Groupe> findByNomGroupe(String nomgroupe);
 }

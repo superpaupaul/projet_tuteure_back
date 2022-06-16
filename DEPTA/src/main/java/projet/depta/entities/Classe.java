@@ -6,25 +6,19 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-
-@Entity
-public class Groupe {
+public class Classe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nomGroupe")
-    private String nomGroupe;
+
+    @Column(name = "nomClasse")
+    private String nomClasse;
 
     @Column(name="professeurs")
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade= CascadeType.ALL)
     private List<User> professeurs;
-
-    @JoinColumn(name = "classe")
-    @OneToOne(cascade = CascadeType.ALL)
-    private Classe classe;
-
-    public Groupe(){}
 }

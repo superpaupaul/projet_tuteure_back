@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Getter
@@ -22,6 +21,14 @@ public class Etudiant {
     @Column(name="prenom")
     private String prenom;
 
+    @Column(name="nOEtudiant")
+    private Long nOEtudiant;
+
+    @Column(name = "classe")
+    private String classe;
+
+    @Column(name = "groupe")
+    private String groupe;
 
     public Etudiant(){}
 }
