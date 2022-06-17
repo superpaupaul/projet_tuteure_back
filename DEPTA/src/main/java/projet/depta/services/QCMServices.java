@@ -6,11 +6,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import projet.depta.entities.QCM;
 import projet.depta.entities.User;
 import projet.depta.repositories.QCMRepository;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.Authenticator;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,5 +80,21 @@ public class QCMServices {
 
     public QCM getQCM(long id) {
         return repository.findById(id).orElse(null);
+    }
+
+    public QCM saveCorrection(String fileName, MultipartFile multipartFile,QCM qcm) throws IOException {
+        String AMCProjectPath = "/home/DEPTA/DATA/"+qcm.getIdcreateur()+"/"+qcm.getId()+"/";
+        Path uploadPath = Paths.get(AMCProjectPath+"/scans");
+
+        BashServices.cleanCopies(qcm);
+
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ioe) {
+            return null;
+        }
+
+        return qcm;
     }
 }

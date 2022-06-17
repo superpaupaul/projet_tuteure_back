@@ -3,7 +3,9 @@ package projet.depta.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import projet.depta.entities.*;
 import projet.depta.repositories.QCMRepository;
 import projet.depta.repositories.QuestionRepository;
@@ -14,6 +16,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PostUpdate;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -73,6 +81,24 @@ public class QCMController {
     public QCM generateNotesQCM(@PathVariable int id){
         return qcmServices.generateNotesQCM(id);
     }
+
+    @PostMapping("/qcm/{id}/uploadcopies")
+    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
+    public QCM uploadFile(
+            @RequestParam("files") MultipartFile[] multipartFile, @PathVariable int id)
+            throws IOException {
+        QCM qcm  = qcmServices.getQCM(id);
+        if(qcm == null){return null;}
+        for(int i = 0 ; i < multipartFile.length ; i++){
+            String fileName = StringUtils.cleanPath(multipartFile[i].getOriginalFilename());
+            long size = multipartFile[i].getSize();
+            qcmServices.saveCorrection(fileName, multipartFile[i],qcm);
+        }
+
+
+        return qcm;
+    }
+
 
 
 

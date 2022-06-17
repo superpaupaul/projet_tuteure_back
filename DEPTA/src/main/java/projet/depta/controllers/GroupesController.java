@@ -15,4 +15,11 @@ import java.util.List;
 @RestController
 public class GroupesController {
 
+    @Autowired
+    GroupeServices groupeServices;
+
+    @GetMapping("/groupes/{id}")
+    public List<Groupe> getGroupes(@PathVariable int id){
+        return groupeServices.getGroupes(id);
+    }
 }

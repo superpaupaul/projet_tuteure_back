@@ -19,7 +19,7 @@ public class Groupe {
     private String nomGroupe;
 
     @Column(name="professeurs")
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     private List<User> professeurs;
 
     @JoinColumn(name = "classe")

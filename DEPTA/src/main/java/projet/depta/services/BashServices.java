@@ -22,6 +22,18 @@ public class BashServices {
         }
     }
 
+    public static Boolean cleanCopies(QCM qcm){
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec("rm -r /home/DEPTA/DATA/" + qcm.getIdcreateur() + "/" + qcm.getId() + "/scans/*");
+            process.waitFor();
+            return true;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @PreAuthorize("#qcm.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
     public static Boolean generateCopies(QCM qcm){
         try {
