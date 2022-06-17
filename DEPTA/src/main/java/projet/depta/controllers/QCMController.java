@@ -67,6 +67,14 @@ public class QCMController {
     }
 
 
+    //Ok
+    @PostMapping("/qcm/{id}/note")
+    @PostAuthorize("returnObject.idcreateur == authentication.principal.id or authentication.principal.isAdmin")
+    public QCM generateNotesQCM(@PathVariable int id){
+        return qcmServices.generateNotesQCM(id);
+    }
+
+
 
     public Boolean editQCM(QCM qcm){
         return true;

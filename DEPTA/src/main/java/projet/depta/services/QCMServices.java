@@ -26,13 +26,6 @@ public class QCMServices {
         return new ArrayList<>(repository.findByIdcreateur(idCreateur));
     }
 
-    public static void newQCM(QCM qcm){
-        System.out.println(qcm.toTex());
-    }
-
-    public static void editQCM(){
-
-    }
     public QCM generateQCM(long id){
         Optional<QCM> qcm = repository.findById(id);
         if(qcm.isEmpty()){
@@ -43,6 +36,18 @@ public class QCMServices {
             return qcm.get();
         }
         return null;
+    }
+
+    public QCM generateNotesQCM(long id){
+        Optional<QCM> qcm = repository.findById(id);
+        if(qcm.isEmpty()){
+            return null;
+        }
+        Boolean keepnoting = BashServices.mepTexProject(qcm.get())
+        && BashServices.generateNotes(qcm.get())
+        && BashServices.associateNotes(qcm.get())
+        && BashServices.exportNotes(qcm.get());
+        return keepnoting ? qcm.get() : null;
     }
 
     public Boolean deleteQCM(long id,QCM qcmrecu) {
