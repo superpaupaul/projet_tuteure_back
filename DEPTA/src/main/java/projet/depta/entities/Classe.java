@@ -19,6 +19,6 @@ public class Classe {
     private String nomClasse;
 
     @Column(name="professeurs")
-    @ManyToMany(cascade= CascadeType.ALL)
+    @ManyToMany
     private List<User> professeurs;
 }

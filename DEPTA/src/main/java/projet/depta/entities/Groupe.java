@@ -19,11 +19,11 @@ public class Groupe {
     private String nomGroupe;
 
     @Column(name="professeurs")
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     private List<User> professeurs;
 
     @JoinColumn(name = "classe")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Classe classe;
 
     public Groupe(){}
