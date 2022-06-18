@@ -54,4 +54,9 @@ public class EtudiantsController {
         }*/
         return etudiants;
     }
+
+    @PostMapping("/etudiant")
+    public Etudiant createEtudiant(@RequestBody Etudiant etudiant){
+        return etudiantsServices.createEtudiant(etudiant);
+    }
 }

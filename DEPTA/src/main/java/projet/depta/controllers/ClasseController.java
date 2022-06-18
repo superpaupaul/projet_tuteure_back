@@ -1,9 +1,9 @@
 package projet.depta.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import projet.depta.entities.Classe;
+import projet.depta.entities.QCM;
 import projet.depta.services.ClasseService;
 
 import java.util.List;
@@ -17,5 +17,15 @@ public class ClasseController {
     @GetMapping("/classes")
     public List<Classe> getClasses(){
         return classeService.getClasses();
+    }
+
+    @GetMapping("/classes/{id}")
+    public List<Classe> getClassesFromUser(@PathVariable int id){
+        return classeService.getClassesFromUser(id);
+    }
+
+    @PutMapping("/classe/{id}")
+    public Classe putClasse(@PathVariable int id, @RequestBody Classe classe){
+        return classeService.putClasse(id,classe);
     }
 }

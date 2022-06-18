@@ -21,8 +21,8 @@ public class Etudiant {
     @Column(name="prenom")
     private String prenom;
 
-    @Column(name="nOEtudiant")
-    private Long nOEtudiant;
+    @Column(name="noetudiant", unique = true)
+    private Long noetudiant;
 
     @Column(name = "classe")
     private String classe;

@@ -9,5 +9,5 @@ public interface EtudiantRepository extends CrudRepository<Etudiant,Long> {
 
     List<Etudiant> findEtudiantsByClasse(String classe);
     List<Etudiant> findEtudiantsByGroupeAndClasse(String groupe,String classe);
-    Etudiant findEtudiantBynOEtudiant(long nOEtudiant);
+    Etudiant findEtudiantByNoetudiant(long nOEtudiant);
 }

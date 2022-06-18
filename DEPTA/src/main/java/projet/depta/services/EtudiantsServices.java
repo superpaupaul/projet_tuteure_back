@@ -11,9 +11,7 @@ import projet.depta.repositories.GroupeRepository;
 import projet.depta.repositories.QCMRepository;
 import projet.depta.repositories.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -87,10 +85,18 @@ public class EtudiantsServices {
         for(Groupe groupe : groupeRepository.findAll()){
             for(User professeur : groupe.getProfesseurs()){
                 if(id == professeur.getId()){
+                    for(Etudiant etudiant :getEtudiantsByClasse(groupe.getId()))
                     etudiants.addAll(getEtudiantsByClasse(groupe.getId()));
                 }
             }
         }
+        Set<Etudiant> set = new HashSet<>(etudiants);
+        etudiants.clear();
+        etudiants.addAll(set);
         return etudiants;
+    }
+
+    public Etudiant createEtudiant(Etudiant etudiant) {
+        return etudiantRepository.save(etudiant);
     }
 }
