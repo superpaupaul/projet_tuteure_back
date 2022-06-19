@@ -12,6 +12,7 @@ import projet.depta.services.EtudiantsServices;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class EtudiantsController {
@@ -31,7 +32,7 @@ public class EtudiantsController {
     }
 
     @GetMapping("/etudiants/byUser/{id}")
-    public List<Etudiant> getEtudiantsByUser(@PathVariable int id){
+    public Set<Etudiant> getEtudiantsByUser(@PathVariable int id){
         return etudiantsServices.getEtudiantsByUser(id);
     }
 

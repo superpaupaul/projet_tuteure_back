@@ -1,6 +1,7 @@
 package projet.depta.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import projet.depta.entities.Classe;
 import projet.depta.entities.Etudiant;
@@ -73,30 +74,35 @@ public class EtudiantsServices {
         return null;
     }
 
-    public List<Etudiant> getEtudiantsByUser(long id) {
-        List<Etudiant> etudiants = new ArrayList<>();
-        for(Classe classe : classeRepository.findAll()){
-            for(User professeur : classe.getProfesseurs()){
-                if(id == professeur.getId()){
-                    etudiants.addAll(getEtudiantsByClasse(classe.getId()));
+    public Set<Etudiant> getEtudiantsByUser(long id) {
+        Set<Etudiant> etudiants = new HashSet<>();
+        User user = userRepository.findById(id).isPresent() ? userRepository.findById(id).get() : null;
+        if(user != null){
+            for(Classe classe : classeRepository.findAll()){
+                if(classe.getProfesseurs().contains(user)){
+                    if (getEtudiantsByClasse(classe.getId()) != null) {
+                        etudiants.addAll(getEtudiantsByClasse(classe.getId()));
+                    }
+                }
+                for(Groupe groupe : groupeRepository.findAll()){
+                    if(groupe.getClasse() == classe && groupe.getProfesseurs().contains(user)){
+                        if (getEtudiantsByGroupeAndClasse(classe.getId(),groupe.getId()) != null) {
+                            etudiants.addAll(getEtudiantsByGroupeAndClasse(classe.getId(),groupe.getId()));
+                        }
+                    }
                 }
             }
+            return etudiants;
         }
-        for(Groupe groupe : groupeRepository.findAll()){
-            for(User professeur : groupe.getProfesseurs()){
-                if(id == professeur.getId()){
-                    for(Etudiant etudiant :getEtudiantsByClasse(groupe.getId()))
-                    etudiants.addAll(getEtudiantsByClasse(groupe.getId()));
-                }
-            }
-        }
-        Set<Etudiant> set = new HashSet<>(etudiants);
-        etudiants.clear();
-        etudiants.addAll(set);
-        return etudiants;
+        return null;
     }
 
     public Etudiant createEtudiant(Etudiant etudiant) {
-        return etudiantRepository.save(etudiant);
+        try{
+            return etudiantRepository.save(etudiant);
+        }
+        catch (DataIntegrityViolationException dive){
+            return null;
+        }
     }
 }
